@@ -1,0 +1,40 @@
+<h1>Product Details </h1>
+<br>
+<%# <%= link_to "List products by highest price",product_des_price_path %>
+<h3>  Total product price = <%=@total_product_price %> </h3>
+<h3>  Total stock price = <%=@total %> </h3>
+<%= link_to "Order Details",product_orders_placed_path %>
+<br>
+<table border="1">
+<thead  bgcolor="yellow">
+	<tr>
+		<th> Product Name </th>
+		<th> <%= link_to "^",product_asc_price_path %> Price <%= link_to "v", product_des_price_path %> </th>
+		<th> Unit </th>
+		<th> Stock status  <div> <%= link_to "in_stock", product_in_stock_path %> / <%= link_to "out of stock", product_out_stock_path %></th>
+		<th> Availability <div> <%= link_to "available",product_available_path %> / <%= link_to "not available",product_not_available_path %> </th>
+		<th> Category <div> <%= link_to "Display Categorywise products ",product_prod_cat_path %> </th> 
+	</tr>
+</thead>
+<tbody>
+	<% clr = 0 %>
+	<% @products.each do |product| %>
+	<% if clr == 0 %>
+		<tr bgcolor = "lightgrey"> 
+		<% clr = 1%>
+	<% else %>
+		<% clr = 0 %>
+		<tr>
+	<% end %>
+		<td> <%= product.name %> </td>
+		<td> <%= product.price %> </td>
+		<td> <%= product.unit %> </td>
+		<td> <%= product.in_stock %> </td>
+		<td> <%= product.available_from.strftime("%a, %d, %b %Y") %> </td>
+		<td> <%= Cat.find(product.category).category_name %> </td>
+	</tr>
+	<% end %>
+</tbody>
+</table>
+
+

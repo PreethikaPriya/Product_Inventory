@@ -1,0 +1,71 @@
+<%= link_to "Home",product_detail_path %>
+<br>
+<h1> Listing lineitem details </h1>
+<br>
+<h2> Total income <%= Lineitemnew.pluck(:total_price).inject(:+).round(2)%> </h2>
+<% @orders.each do |order| %>
+<h2> Listing product details for Order number: <%= Order.find(order).order_number%> </h2>
+<table border="1">
+<thead  bgcolor="yellow">
+	<tr>
+		<th> Order Id</th>
+		<th> Product Id </th>
+		<th> Quantity</th>
+		<th> Price </th> 
+		<th> Total Price </th>
+	</tr>
+</thead>
+<tbody>
+<% clr = 0 %>
+<% sum = 0 %>
+
+		<%# #puts "category = #{cat}" %>
+		<%product = Lineitemnew.where('order_id = ?', order) %>
+	<% product.each do |product| %>
+	<% if clr == 0 %>
+		<tr bgcolor = "lightgrey"> 
+		<% clr = 1%>
+	<% else %>
+		<% clr = 0 %>
+		<tr>
+	<% end %>
+		<td> <%= product.order_id %> </td>
+		<td> <%= product.product_id %> </td>
+		<td> <%= product.quantity %> </td>
+		<td> <%= product.price %> </td>
+		<td> <%= product.total_price %> </td>
+		<% sum += product.total_price %>
+	</tr>
+	<% end %>
+</tbody>
+</table>
+<br>
+Total price for order:<%= sum %>
+<%end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+<%= link_to "Home",product_detail_path %>
+<br>
+<h3> Listing total <%= @orders.count %> order details </h3>
+<br>
+<%= link_to "List line item",product_line_item_details_path %>
+<%= link_to "Recent order",product_recent_order_path %>
+<table border="1">
+<thead  bgcolor="yellow">
+	<tr>
+		<th> Order Date </th>
+		<th> Order Number</th>
+		<th> Total line Items </th>
+	</tr>
+</thead>
+<tbody>
+<% clr = 0 %>
+	<% @orders.each do |order| %>
+	<% if clr == 0 %>
+		<tr bgcolor = "lightgrey"> 
+		<% clr = 1%>
+	<% else %>
+		<% clr = 0 %>
+		<tr>
+	<% end %>
+		<td> <%= order.order_date %> </td>
+		<td> <%= order.order_number %> </td>
+		<td> <%= Lineitemnew.where('order_id = ?',order.id).count %> </td>
+	<% end %>
+</tbody>
+</table>

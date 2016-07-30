@@ -1,0 +1,35 @@
+<%= link_to "Home",product_detail_path %>
+<br>
+<h3> Listing <%= @products.count %> currently not available product details  </h4>
+<br>
+<table border="1">
+<thead  bgcolor="yellow">
+	<tr>
+		<th> Product Name </th>
+		<th> Price </th>
+		<th> Unit </th>
+		<th> Stock Status </th> 
+		<th> Available</th>
+		<th> Category </th> 
+	</tr>
+</thead>
+<tbody>
+<% clr = 0 %>
+	<% @products.each do |product| %>
+	<% if clr == 0 %>
+		<tr bgcolor = "lightgrey"> 
+		<% clr = 1%>
+	<% else %>
+		<% clr = 0 %>
+		<tr>
+	<% end %>
+		<td> <%= product.name %> </td>
+		<td> <%= product.price %> </td>
+		<td> <%= product.unit %> </td>
+		<td> <%= product.in_stock %> </td>
+		<td> <%= product.available_from.strftime("%a, %d, %b %Y") %> </td>
+		<td> <%= Cat.find(product.category).category_name %> </td>
+	</tr>
+	<% end %>
+</tbody>
+</table>
